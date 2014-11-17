@@ -13,18 +13,21 @@ class Student
 
   def method_missing(name)
     if (name.to_s.match(/^has_.+?\?/))
-      self.class.send(:define_method, name) do
-        @badges.include?(get_badge_name(name)) ? true : false
-      end
-      self.send(name)     # this creates the method
+      define_badge_check_method(name)
+      self.send(name)     # this creates the method??
     else
-      puts "Sorry, I don't have that!"  # could write   super   here
+      puts "Sorry, I don't have that method!"  # "super" here if don't want error
     end
   end
 
 
-
   private
+
+  def define_badge_check_method(name)
+    self.class.send(:define_method, name) do
+        @badges.include?(get_badge_name(name)) ? true : false
+      end
+  end
 
   def get_badge_name(name_of_method)
       name_of_method.to_s[4..-2]
