@@ -14,9 +14,9 @@ class Student
   def method_missing(name)
     if (name.to_s.match(/^has_.+?\?/))
       define_badge_check_method(name)
-      self.send(name)     # this creates the method??
+      self.send(name)                          # this calls the method
     else
-      puts "Sorry, I don't have that method!"  # "super" here if don't want error
+      puts "Sorry, I don't have that method!"  # "super" here for default
     end
   end
 
